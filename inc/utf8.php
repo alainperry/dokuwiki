@@ -419,6 +419,29 @@ if(!function_exists('utf8_ucfirst')){
     }
 }
 
+if(!function_exists('utf8_lcfirst')){
+    /**
+     * UTF-8 aware alternative to lcfirst
+     * Make a string's first character lowercase
+     *
+     * @author Alain Perry
+     *
+     * @param string $str
+     * @return string with first character as lower case (if applicable)
+     */
+    function utf8_lcfirst($str){
+        switch ( utf8_strlen($str) ) {
+            case 0:
+                return '';
+            case 1:
+                return utf8_strtolower($str);
+            default:
+                preg_match('/^(.{1})(.*)$/us', $str, $matches);
+                return utf8_strtolower($matches[1]).$matches[2];
+        }
+    }
+}
+
 if(!function_exists('utf8_ucwords')){
     /**
      * UTF-8 aware alternative to ucwords
